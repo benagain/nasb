@@ -42,6 +42,13 @@
             endpointFactory = _ => externallyManagedContainerEndpoint.Start(serviceProvider);
         }
 
+        internal FunctionEndpoint(
+            IStartableEndpointWithExternallyManagedContainer externallyManagedContainerEndpoint,
+            EndpointConfiguration configuration, IServiceProvider serviceProvider)
+        {
+            endpointFactory = _ => externallyManagedContainerEndpoint.Start(serviceProvider);
+        }
+
         /// <summary>
         /// Processes a message received from an AzureServiceBus trigger using the NServiceBus message pipeline.
         /// </summary>
@@ -111,7 +118,7 @@
 
                         endpoint = await endpointFactory(executionContext).ConfigureAwait(false);
 
-                        pipeline = configuration.PipelineInvoker;
+                        pipeline = configuration?.PipelineInvoker;
                     }
                 }
                 finally
