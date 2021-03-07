@@ -19,25 +19,12 @@
         {
             var serviceBusTriggeredEndpointConfiguration = configurationFactory();
 
-            var endpointFactory = Configure(serviceBusTriggeredEndpointConfiguration.AdvancedConfiguration, functionsHostBuilder.Services,
+            var endpointFactory = Configure(serviceBusTriggeredEndpointConfiguration, functionsHostBuilder.Services,
                 Path.Combine(functionsHostBuilder.GetContext().ApplicationRootPath, "bin"));
-            //var endpointFactory = Configure(serviceBusTriggeredEndpointConfiguration, functionsHostBuilder.Services,
-            //    Path.Combine(functionsHostBuilder.GetContext().ApplicationRootPath, "bin"));
 
             // for backward compatibility
             functionsHostBuilder.Services.AddSingleton(endpointFactory);
             functionsHostBuilder.Services.AddSingleton<IFunctionEndpoint>(sp => sp.GetRequiredService<FunctionEndpoint>());
-        }
-
-        private static Func<IServiceProvider, FunctionEndpoint> Configure(EndpointConfiguration advancedConfiguration, IServiceCollection services, string appDirectory)
-        {
-            FunctionEndpoint.LoadAssemblies(appDirectory);
-
-            var startable = EndpointWithExternallyManagedServiceProvider.Create(
-                advancedConfiguration,
-                services);
-
-            return serviceProvider => new FunctionEndpoint(startable, advancedConfiguration, serviceProvider);
         }
 
         internal static Func<IServiceProvider, FunctionEndpoint> Configure(

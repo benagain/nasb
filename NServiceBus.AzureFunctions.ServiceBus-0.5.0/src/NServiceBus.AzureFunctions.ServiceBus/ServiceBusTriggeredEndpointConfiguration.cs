@@ -25,44 +25,43 @@
         public ServiceBusTriggeredEndpointConfiguration(string endpointName, string connectionStringName = null)
         {
             EndpointConfiguration = new EndpointConfiguration(endpointName);
-
+            //*
             EndpointConfiguration.UseTransport<LearningTransport>().StorageDirectory(@"C:\temp\.learning-nasb");
+            /*/
 
-            //var functionEndpoint = await Endpoint.Create(epConf);
-            //var ep = await functionEndpoint.Start();
+            recoverabilityPolicy.SendFailedMessagesToErrorQueue = true;
+            EndpointConfiguration.Recoverability().CustomPolicy(recoverabilityPolicy.Invoke);
 
-            //recoverabilityPolicy.SendFailedMessagesToErrorQueue = true;
-            //EndpointConfiguration.Recoverability().CustomPolicy(recoverabilityPolicy.Invoke);
+            // Disable diagnostics by default as it will fail to create the diagnostics file in the default path.
+            // Can be overriden by ServerlessEndpointConfiguration.LogDiagnostics().
+            EndpointConfiguration.CustomDiagnosticsWriter(_ => Task.CompletedTask);
 
-            //// Disable diagnostics by default as it will fail to create the diagnostics file in the default path.
-            //// Can be overriden by ServerlessEndpointConfiguration.LogDiagnostics().
-            //EndpointConfiguration.CustomDiagnosticsWriter(_ => Task.CompletedTask);
+            // 'WEBSITE_SITE_NAME' represents an Azure Function App and the environment variable is set when hosting the function in Azure.
+            var functionAppName = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME") ?? Environment.MachineName;
+            EndpointConfiguration.UniquelyIdentifyRunningInstance()
+                .UsingCustomDisplayName(functionAppName)
+                .UsingCustomIdentifier(DeterministicGuid.Create(functionAppName));
 
-            //// 'WEBSITE_SITE_NAME' represents an Azure Function App and the environment variable is set when hosting the function in Azure.
-            //var functionAppName = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME") ?? Environment.MachineName;
-            //EndpointConfiguration.UniquelyIdentifyRunningInstance()
-            //    .UsingCustomDisplayName(functionAppName)
-            //    .UsingCustomIdentifier(DeterministicGuid.Create(functionAppName));
+            // Look for license as an environment variable
+            var licenseText = Environment.GetEnvironmentVariable("NSERVICEBUS_LICENSE");
+            if (!string.IsNullOrWhiteSpace(licenseText))
+            {
+                EndpointConfiguration.License(licenseText);
+            }
 
-            //// Look for license as an environment variable
-            //var licenseText = Environment.GetEnvironmentVariable("NSERVICEBUS_LICENSE");
-            //if (!string.IsNullOrWhiteSpace(licenseText))
-            //{
-            //    EndpointConfiguration.License(licenseText);
-            //}
+            Transport = UseTransport<AzureServiceBusTransport>();
+            UseTransport<LearningTransport>().StorageDirectory(@"c:\temp\.learning-nasb");
 
-            ////Transport = UseTransport<AzureServiceBusTransport>();
-            //UseTransport<LearningTransport>().StorageDirectory(@"c:\temp\.learning-nasb");
+            var connectionString =
+                Environment.GetEnvironmentVariable(connectionStringName ?? DefaultServiceBusConnectionName);
+            Transport.ConnectionString(connectionString);
 
-            /*//var connectionString =
-            //    Environment.GetEnvironmentVariable(connectionStringName ?? DefaultServiceBusConnectionName);
-            //Transport.ConnectionString(connectionString);*/
+            var recoverability = AdvancedConfiguration.Recoverability();
+            recoverability.Immediate(settings => settings.NumberOfRetries(5));
+            recoverability.Delayed(settings => settings.NumberOfRetries(3));
 
-            //var recoverability = AdvancedConfiguration.Recoverability();
-            //recoverability.Immediate(settings => settings.NumberOfRetries(5));
-            //recoverability.Delayed(settings => settings.NumberOfRetries(3));
-
-            //EndpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+            /**/
+            EndpointConfiguration.UseSerialization<NewtonsoftSerializer>();
         }
 
         /// <summary>
