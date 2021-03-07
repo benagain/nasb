@@ -10,7 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctions.ASBTrigger.F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NSB", "NSB", "{77B4DBFF-A082-4A59-B60C-0C39F8AE459E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NServiceBus.AzureFunctions.ServiceBus", "NServiceBus.AzureFunctions.ServiceBus-master\src\NServiceBus.AzureFunctions.ServiceBus\NServiceBus.AzureFunctions.ServiceBus.csproj", "{A0AFB613-6E7B-40F1-8D31-B78AD316D83E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NServiceBus.AzureFunctions.ServiceBus", "NServiceBus.AzureFunctions.ServiceBus-0.5.0\src\NServiceBus.AzureFunctions.ServiceBus\NServiceBus.AzureFunctions.ServiceBus.csproj", "{3525C811-522F-40BB-9855-150B858E3130}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,24 +58,24 @@ Global
 		{97E1678A-08BA-4293-871C-6D48AA19E1AF}.Release|x64.Build.0 = Release|Any CPU
 		{97E1678A-08BA-4293-871C-6D48AA19E1AF}.Release|x86.ActiveCfg = Release|Any CPU
 		{97E1678A-08BA-4293-871C-6D48AA19E1AF}.Release|x86.Build.0 = Release|Any CPU
-		{A0AFB613-6E7B-40F1-8D31-B78AD316D83E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0AFB613-6E7B-40F1-8D31-B78AD316D83E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0AFB613-6E7B-40F1-8D31-B78AD316D83E}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A0AFB613-6E7B-40F1-8D31-B78AD316D83E}.Debug|x64.Build.0 = Debug|Any CPU
-		{A0AFB613-6E7B-40F1-8D31-B78AD316D83E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A0AFB613-6E7B-40F1-8D31-B78AD316D83E}.Debug|x86.Build.0 = Debug|Any CPU
-		{A0AFB613-6E7B-40F1-8D31-B78AD316D83E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0AFB613-6E7B-40F1-8D31-B78AD316D83E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0AFB613-6E7B-40F1-8D31-B78AD316D83E}.Release|x64.ActiveCfg = Release|Any CPU
-		{A0AFB613-6E7B-40F1-8D31-B78AD316D83E}.Release|x64.Build.0 = Release|Any CPU
-		{A0AFB613-6E7B-40F1-8D31-B78AD316D83E}.Release|x86.ActiveCfg = Release|Any CPU
-		{A0AFB613-6E7B-40F1-8D31-B78AD316D83E}.Release|x86.Build.0 = Release|Any CPU
+		{3525C811-522F-40BB-9855-150B858E3130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3525C811-522F-40BB-9855-150B858E3130}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3525C811-522F-40BB-9855-150B858E3130}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3525C811-522F-40BB-9855-150B858E3130}.Debug|x64.Build.0 = Debug|Any CPU
+		{3525C811-522F-40BB-9855-150B858E3130}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3525C811-522F-40BB-9855-150B858E3130}.Debug|x86.Build.0 = Debug|Any CPU
+		{3525C811-522F-40BB-9855-150B858E3130}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3525C811-522F-40BB-9855-150B858E3130}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3525C811-522F-40BB-9855-150B858E3130}.Release|x64.ActiveCfg = Release|Any CPU
+		{3525C811-522F-40BB-9855-150B858E3130}.Release|x64.Build.0 = Release|Any CPU
+		{3525C811-522F-40BB-9855-150B858E3130}.Release|x86.ActiveCfg = Release|Any CPU
+		{3525C811-522F-40BB-9855-150B858E3130}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{A0AFB613-6E7B-40F1-8D31-B78AD316D83E} = {77B4DBFF-A082-4A59-B60C-0C39F8AE459E}
+		{3525C811-522F-40BB-9855-150B858E3130} = {77B4DBFF-A082-4A59-B60C-0C39F8AE459E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6C66C18C-5075-4811-AF40-2997E8863F3B}
