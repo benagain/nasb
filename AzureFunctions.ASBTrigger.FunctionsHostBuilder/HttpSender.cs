@@ -22,12 +22,21 @@ namespace AzureFunctions.ASBTrigger.FunctionsHostBuilder
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest request, ExecutionContext executionContext, ILogger logger)
         {
+            logger.LogDebug("Function invoked.");
             logger.LogInformation("C# HTTP trigger function received a request.");
 
+            //*
             var sendOptions = new SendOptions();
             sendOptions.RouteToThisEndpoint();
-
             await functionEndpoint.Send(new TriggerMessage(), sendOptions, executionContext, logger);
+            /*/
+            var epConf = new EndpointConfiguration("ASBTriggerQueue");
+            epConf.UseTransport<LearningTransport>().StorageDirectory(@"C:\temp\.learning-nasb");
+            var functionEndpoint = await  Endpoint.Create(epConf);
+            var ep = await functionEndpoint.Start();
+            await ep.SendLocal(new TriggerMessage());
+            //*/
+
 
             return new OkObjectResult($"{nameof(TriggerMessage)} sent.");
         }

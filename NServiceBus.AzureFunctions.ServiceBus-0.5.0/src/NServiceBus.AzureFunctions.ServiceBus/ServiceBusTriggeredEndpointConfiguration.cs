@@ -15,7 +15,8 @@
     {
         static ServiceBusTriggeredEndpointConfiguration()
         {
-            LogManager.UseFactory(FunctionsLoggerFactory.Instance);
+            //LogManager.UseFactory(FunctionsLoggerFactory.Instance);
+            LogManager.Use<DefaultFactory>().Level(LogLevel.Debug);
         }
 
         /// <summary>
@@ -25,37 +26,43 @@
         {
             EndpointConfiguration = new EndpointConfiguration(endpointName);
 
-            recoverabilityPolicy.SendFailedMessagesToErrorQueue = true;
-            EndpointConfiguration.Recoverability().CustomPolicy(recoverabilityPolicy.Invoke);
+            EndpointConfiguration.UseTransport<LearningTransport>().StorageDirectory(@"C:\temp\.learning-nasb");
 
-            // Disable diagnostics by default as it will fail to create the diagnostics file in the default path.
-            // Can be overriden by ServerlessEndpointConfiguration.LogDiagnostics().
-            EndpointConfiguration.CustomDiagnosticsWriter(_ => Task.CompletedTask);
+            //var functionEndpoint = await Endpoint.Create(epConf);
+            //var ep = await functionEndpoint.Start();
 
-            // 'WEBSITE_SITE_NAME' represents an Azure Function App and the environment variable is set when hosting the function in Azure.
-            var functionAppName = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME") ?? Environment.MachineName;
-            EndpointConfiguration.UniquelyIdentifyRunningInstance()
-                .UsingCustomDisplayName(functionAppName)
-                .UsingCustomIdentifier(DeterministicGuid.Create(functionAppName));
+            //recoverabilityPolicy.SendFailedMessagesToErrorQueue = true;
+            //EndpointConfiguration.Recoverability().CustomPolicy(recoverabilityPolicy.Invoke);
 
-            // Look for license as an environment variable
-            var licenseText = Environment.GetEnvironmentVariable("NSERVICEBUS_LICENSE");
-            if (!string.IsNullOrWhiteSpace(licenseText))
-            {
-                EndpointConfiguration.License(licenseText);
-            }
+            //// Disable diagnostics by default as it will fail to create the diagnostics file in the default path.
+            //// Can be overriden by ServerlessEndpointConfiguration.LogDiagnostics().
+            //EndpointConfiguration.CustomDiagnosticsWriter(_ => Task.CompletedTask);
 
-            Transport = UseTransport<AzureServiceBusTransport>();
+            //// 'WEBSITE_SITE_NAME' represents an Azure Function App and the environment variable is set when hosting the function in Azure.
+            //var functionAppName = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME") ?? Environment.MachineName;
+            //EndpointConfiguration.UniquelyIdentifyRunningInstance()
+            //    .UsingCustomDisplayName(functionAppName)
+            //    .UsingCustomIdentifier(DeterministicGuid.Create(functionAppName));
 
-            var connectionString =
-                Environment.GetEnvironmentVariable(connectionStringName ?? DefaultServiceBusConnectionName);
-            Transport.ConnectionString(connectionString);
+            //// Look for license as an environment variable
+            //var licenseText = Environment.GetEnvironmentVariable("NSERVICEBUS_LICENSE");
+            //if (!string.IsNullOrWhiteSpace(licenseText))
+            //{
+            //    EndpointConfiguration.License(licenseText);
+            //}
 
-            var recoverability = AdvancedConfiguration.Recoverability();
-            recoverability.Immediate(settings => settings.NumberOfRetries(5));
-            recoverability.Delayed(settings => settings.NumberOfRetries(3));
+            ////Transport = UseTransport<AzureServiceBusTransport>();
+            //UseTransport<LearningTransport>().StorageDirectory(@"c:\temp\.learning-nasb");
 
-            EndpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+            /*//var connectionString =
+            //    Environment.GetEnvironmentVariable(connectionStringName ?? DefaultServiceBusConnectionName);
+            //Transport.ConnectionString(connectionString);*/
+
+            //var recoverability = AdvancedConfiguration.Recoverability();
+            //recoverability.Immediate(settings => settings.NumberOfRetries(5));
+            //recoverability.Delayed(settings => settings.NumberOfRetries(3));
+
+            //EndpointConfiguration.UseSerialization<NewtonsoftSerializer>();
         }
 
         /// <summary>
