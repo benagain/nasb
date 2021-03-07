@@ -118,7 +118,7 @@
 
                         endpoint = await endpointFactory(executionContext).ConfigureAwait(false);
 
-                        pipeline = configuration?.PipelineInvoker;
+                        pipeline = configuration?.PipelineInvoker ?? PipelineInvoker.CreateNull();
                     }
                 }
                 finally
@@ -134,6 +134,8 @@
             await InitializeEndpointUsedOutsideHandlerIfNecessary(executionContext, functionsLogger).ConfigureAwait(false);
 
             await endpoint.Send(message, options).ConfigureAwait(false);
+
+            await Task.Delay(1000).ConfigureAwait(false); // Hack for LearningTransport
         }
 
         /// <inheritdoc />
@@ -148,6 +150,8 @@
             await InitializeEndpointUsedOutsideHandlerIfNecessary(executionContext, functionsLogger).ConfigureAwait(false);
 
             await endpoint.Send(messageConstructor, options).ConfigureAwait(false);
+
+            await Task.Delay(1000).ConfigureAwait(false); // Hack for LearningTransport
         }
 
         /// <inheritdoc />
@@ -162,6 +166,8 @@
             await InitializeEndpointUsedOutsideHandlerIfNecessary(executionContext, functionsLogger).ConfigureAwait(false);
 
             await endpoint.Publish(message, options).ConfigureAwait(false);
+
+            await Task.Delay(1000).ConfigureAwait(false); // Hack for LearningTransport
         }
 
         /// <inheritdoc />
@@ -178,6 +184,8 @@
             await InitializeEndpointUsedOutsideHandlerIfNecessary(executionContext, functionsLogger).ConfigureAwait(false);
 
             await endpoint.Publish(message).ConfigureAwait(false);
+
+            await Task.Delay(1000).ConfigureAwait(false); // Hack for LearningTransport
         }
 
         /// <inheritdoc />
