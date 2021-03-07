@@ -363,7 +363,6 @@ MigrationBackup/
 
 # AppSetting environment files
 *.development.json
-local.settings.json
 
 #SonarCloud
 

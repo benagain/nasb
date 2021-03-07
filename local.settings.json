@@ -1,0 +1,10 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+
+    "AzureWebJobsServiceBus": "Endpoint=sb://ba-nsb-azure.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=eBl2UojAR6ZNsb1o/6fMtOhBcwF/D5uQkA3EbrDo61s=",
+    "CustomComponentValue": "Custom Component"
+  }
+}
