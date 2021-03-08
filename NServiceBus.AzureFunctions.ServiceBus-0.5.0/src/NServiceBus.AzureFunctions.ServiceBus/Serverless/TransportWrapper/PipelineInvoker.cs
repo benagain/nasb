@@ -41,5 +41,14 @@
 
         Func<MessageContext, Task> onMessage;
         Func<ErrorContext, Task<ErrorHandleResult>> onError;
+
+        internal static PipelineInvoker CreateNull()
+        {
+            return new PipelineInvoker()
+            {
+                onMessage = (_) => Task.CompletedTask,
+                onError = (_) => Task.FromResult(ErrorHandleResult.Handled)
+            };
+        }
     }
 }

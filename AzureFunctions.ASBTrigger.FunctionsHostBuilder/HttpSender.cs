@@ -30,8 +30,6 @@ namespace AzureFunctions.ASBTrigger.FunctionsHostBuilder
 
             await functionEndpoint.Send(new TriggerMessage(), sendOptions, executionContext, logger);
 
-            //await Task.Delay(1000);
-
             return new OkObjectResult($"{nameof(TriggerMessage)} sent.");
         }
     }
