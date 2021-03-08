@@ -111,7 +111,7 @@
 
                         endpoint = await endpointFactory(executionContext).ConfigureAwait(false);
 
-                        pipeline = configuration.PipelineInvoker/* ?? PipelineInvoker.CreateNull()*/;
+                        pipeline = configuration.PipelineInvoker;
 
                         hackForLearning = configuration.HackForLearning;
                     }
