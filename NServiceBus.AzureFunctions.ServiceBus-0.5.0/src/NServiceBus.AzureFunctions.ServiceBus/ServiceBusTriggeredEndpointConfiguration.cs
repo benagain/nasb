@@ -1,4 +1,4 @@
-namespace NServiceBus
+﻿namespace NServiceBus
 {
     using System;
     using System.Threading.Tasks;
@@ -27,6 +27,7 @@ namespace NServiceBus
             EndpointConfiguration = new EndpointConfiguration(endpointName);
             /*
             EndpointConfiguration.UseTransport<LearningTransport>().StorageDirectory(@"C:\temp\.learning-nasb");
+            HackForLearning = () => Task.Delay(1000);
             /*/
 
             recoverabilityPolicy.SendFailedMessagesToErrorQueue = true;
@@ -62,6 +63,12 @@ namespace NServiceBus
             /**/
             EndpointConfiguration.UseSerialization<NewtonsoftSerializer>();
         }
+
+        /// <summary>
+        /// The LearningTransport process all messages out-of-thread of the Function Trigger as
+        /// there is no Azure Service Bus queue that is used to transport the messages.
+        /// </summary>
+        public Func<Task> HackForLearning { get; } = () => Task.CompletedTask;
 
         /// <summary>
         /// Azure Service Bus transport
