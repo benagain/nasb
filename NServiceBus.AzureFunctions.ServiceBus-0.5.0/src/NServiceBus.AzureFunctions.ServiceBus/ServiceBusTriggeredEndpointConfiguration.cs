@@ -1,4 +1,4 @@
-﻿namespace NServiceBus
+namespace NServiceBus
 {
     using System;
     using System.Threading.Tasks;
@@ -50,7 +50,6 @@
             }
 
             Transport = UseTransport<AzureServiceBusTransport>();
-            UseTransport<LearningTransport>().StorageDirectory(@"c:\temp\.learning-nasb");
 
             var connectionString =
                 Environment.GetEnvironmentVariable(connectionStringName ?? DefaultServiceBusConnectionName);
