@@ -25,18 +25,10 @@ namespace AzureFunctions.ASBTrigger.FunctionsHostBuilder
             logger.LogDebug("Function invoked.");
             logger.LogInformation("C# HTTP trigger function received a request.");
 
-            //*
             var sendOptions = new SendOptions();
             sendOptions.RouteToThisEndpoint();
-            await functionEndpoint.Send(new TriggerMessage(), sendOptions, executionContext, logger);
-            /*/
-            var epConf = new EndpointConfiguration("ASBTriggerQueue");
-            epConf.UseTransport<LearningTransport>().StorageDirectory(@"C:\temp\.learning-nasb");
-            var functionEndpoint = await  Endpoint.Create(epConf);
-            var ep = await functionEndpoint.Start();
-            await ep.SendLocal(new TriggerMessage());
-            //*/
 
+            await functionEndpoint.Send(new TriggerMessage(), sendOptions, executionContext, logger);
 
             return new OkObjectResult($"{nameof(TriggerMessage)} sent.");
         }
