@@ -20,10 +20,6 @@
     /// </summary>
     public class FunctionEndpoint : IFunctionEndpoint
     {
-        //private static Task HackForLearning => Task.Delay(1000); // Hack for LearningTransport
-        private static Task HackForLearning => Task.CompletedTask; // Hack for LearningTransport
-
-
         /// <summary>
         /// Creates a new instance of <see cref="FunctionEndpoint" /> that can handle messages using the provided configuration.
         /// </summary>
@@ -115,7 +111,7 @@
 
                         endpoint = await endpointFactory(executionContext).ConfigureAwait(false);
 
-                        pipeline = configuration.PipelineInvoker/* ?? PipelineInvoker.CreateNull()*/;
+                        pipeline = configuration.PipelineInvoker;
                     }
                 }
                 finally
@@ -131,8 +127,6 @@
             await InitializeEndpointUsedOutsideHandlerIfNecessary(executionContext, functionsLogger).ConfigureAwait(false);
 
             await endpoint.Send(message, options).ConfigureAwait(false);
-
-            //await HackForLearning.ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -147,8 +141,6 @@
             await InitializeEndpointUsedOutsideHandlerIfNecessary(executionContext, functionsLogger).ConfigureAwait(false);
 
             await endpoint.Send(messageConstructor, options).ConfigureAwait(false);
-
-            await HackForLearning.ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -163,8 +155,6 @@
             await InitializeEndpointUsedOutsideHandlerIfNecessary(executionContext, functionsLogger).ConfigureAwait(false);
 
             await endpoint.Publish(message, options).ConfigureAwait(false);
-
-            await HackForLearning.ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -181,8 +171,6 @@
             await InitializeEndpointUsedOutsideHandlerIfNecessary(executionContext, functionsLogger).ConfigureAwait(false);
 
             await endpoint.Publish(message).ConfigureAwait(false);
-
-            await HackForLearning.ConfigureAwait(false);
         }
 
         /// <inheritdoc />
