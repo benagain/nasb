@@ -25,7 +25,7 @@
         public ServiceBusTriggeredEndpointConfiguration(string endpointName, string connectionStringName = null)
         {
             EndpointConfiguration = new EndpointConfiguration(endpointName);
-            //*
+            /*
             EndpointConfiguration.UseTransport<LearningTransport>().StorageDirectory(@"C:\temp\.learning-nasb");
             /*/
 
